@@ -10,6 +10,8 @@ public class Analisis {
          String str = new String (cstr);
          int coincidencias = 0;
 
+         System.out.println("ANALIZANDO");
+
          coincidencias += StringUtils.countOccurrencesOf(str,"AAAA");
          if (coincidencias<2){
              coincidencias += StringUtils.countOccurrencesOf(str,"CCCC");
@@ -33,6 +35,11 @@ public class Analisis {
         }
         return arr;
     }
+
+     public static String statsDNA(){
+         float ratio = 0;
+         return "probando";
+     }
 
      public static boolean isMutant(String dna[]) {
 
