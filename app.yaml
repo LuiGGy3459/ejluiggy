@@ -2,4 +2,4 @@
 # Tipo de Instancia: flex, permite escalar en forma automatica segun necesidad de procesamiento.
 
 runtime: java11
-instance_class: flex
+instance_class: F2
