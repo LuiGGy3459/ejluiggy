@@ -1,6 +1,8 @@
 package com.ejercicio.logic;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.util.StringUtils;
 import java.lang.*;
 
@@ -33,11 +35,47 @@ public class Analisis {
         for(int i=0; i<arr.length; i++) {
             arr[i]=array.optString(i);
         }
-
         return arr;
     }
 
-     public static boolean isMutant(String dna[]) {
+    public static String dnachk(JSONObject dnadata) throws JSONException { //Chequea integridad y Longitud de ADN
+        JSONArray arr = dnadata.getJSONArray("dna");
+        String [] sarr = toStringArray(arr);
+
+        char [][] dnaarr = new char[sarr.length][sarr.length]; // se asume el arreglo N*N
+
+        int i,c;
+        int lenvalidance = 0; //Valida la longitud del Arreglo.
+        int charvalidance = 0; //valida la integridad del ADN ("ACGT")
+
+        for (i=0;i<(sarr.length-1);i++){
+            if (sarr[i].length() == sarr[i+1].length()){
+                lenvalidance++;
+            }
+        }
+        if (lenvalidance == (sarr.length - 1)) { //verificamos que el Arreglo sea NxN
+            for (i = 0; i < sarr.length; i++) {
+                for (c = 0; c < sarr.length; c++) {
+                    dnaarr[i][c] = sarr[i].charAt(c); //convierto a char array de NxN
+                    dnaarr[i][c] = Character.toUpperCase(dnaarr[i][c]); //Convertimos a Mayus
+                    if (dnaarr[i][c] == ('A') || dnaarr[i][c] == ('C') || dnaarr[i][c] == ('G') || dnaarr[i][c] == ('T')) {
+                        charvalidance++;
+                    }
+                }
+            }
+            if (charvalidance == sarr.length*sarr.length) {
+                return "ok"; //Arreglo cumple todos los requisitos
+            } else
+            {
+                return "errcv"; //Arreglo ADN no cumple integridad "ACGT"
+            }
+        } else
+        {
+            return "errlv"; //Arreglo ADN no cumple Longitud NxN
+        }
+    }
+
+    public static boolean isMutant(String dna[]) {
 
         int columna, fila, i, j, N;
         boolean res = false;
@@ -53,6 +91,7 @@ public class Analisis {
                 for (i = 0; i < N; i++) {
                     for (j = 0; j < N; j++) {
                         arreglo[i][j] = dna[i].charAt(j); //convierto a char array de NxN
+                        arreglo[i][j] = Character.toUpperCase(arreglo[i][j]); //Convertimos a Mayus
                     }
                 }
 
@@ -126,8 +165,6 @@ public class Analisis {
              System.out.println("El error es:" + err);
              //return "La Matriz de ADN no es NxN";
         }
-
         return res;
-
     }
 }
