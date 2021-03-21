@@ -61,7 +61,7 @@ public class Analisis {
         int charvalidance = 0; //valida la integridad del ADN ("ACGT")
 
         for (i=0;i<(sarr.length-1);i++){
-            if (sarr[i].length() == sarr[i+1].length()){
+            if (sarr[i].length() == sarr[i+1].length() && sarr[i].length() == sarr.length){
                 lenvalidance++;
             }
         }
