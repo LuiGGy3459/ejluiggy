@@ -46,10 +46,10 @@ public class DnaRest {
             }
         } else if (dnares == "errcv" ) //Mensaje de Error por Integridad de ADN
         {
-            return new ResponseEntity<>("ADN NO INTEGRO: Solo se admite: 'A-C-G-T'", headers, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("ADN NO INTEGRO: Solo se admite: 'A-T-C-G'", headers, HttpStatus.NOT_ACCEPTABLE);
         } else //Mensaje de Error por Longitud de ADN
         {
-            return new ResponseEntity<>("LONGITUD ADN INCOMPATIBLE: Solo de admiten NxN", headers, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("LONGITUD ADN INCOMPATIBLE: Solo de admiten NxN con N>3", headers, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
@@ -57,15 +57,15 @@ public class DnaRest {
     public ResponseEntity<?> state() throws JSONException {
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject body = new JSONObject();
-        body.put("Cant. Mutantes",dna.CountMutant());
-        body.put("Cant. Humanos",dna.CountHuman());
+        body.put("count_mutant_dna",dna.CountMutant());
+        body.put("count_human_dna",dna.CountHuman());
         if (dna.CountHuman() != 0) {
             float ratio = (float)dna.CountMutant() / (float)dna.CountHuman();
             String ratio20 = String.format("%.02f", ratio);
-            body.put("Ratio",ratio20);
+            body.put("ratio",ratio20);
         } else
         {
-            body.put("Ratio","inf");
+            body.put("ratio","N/A");
         }
         return new ResponseEntity(body.toString(), headers, HttpStatus.OK);
     }

@@ -9,7 +9,6 @@ import java.lang.*;
 import java.util.List;
 
 
-
 public class Analisis {
 
     public static int strcheck(char[] cstr) { //metodo que chequea la aparicion de AAAA/CCCC/GGGG/TTTT
@@ -58,10 +57,10 @@ public class Analisis {
 
         int i,c;
         int lenvalidance = 0; //Valida la longitud del Arreglo.
-        int charvalidance = 0; //valida la integridad del ADN ("ACGT")
+        int charvalidance = 0; //valida la integridad del ADN ("ATCG")
 
         for (i=0;i<(sarr.length-1);i++){
-            if (sarr[i].length() == sarr[i+1].length() && sarr[i].length() == sarr.length){
+            if (sarr[i].length() == sarr[i+1].length() && sarr[i].length() == sarr.length && sarr[i].length()>3 && sarr.length >3){
                 lenvalidance++;
             }
         }
