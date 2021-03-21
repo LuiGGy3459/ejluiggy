@@ -57,12 +57,12 @@ public class DnaRest {
     public ResponseEntity<?> state() throws JSONException {
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject body = new JSONObject();
-        body.put("Cant. Mutantes",dna.CountMutant());
-        body.put("Cant. Humanos",dna.CountHuman());
+        body.put("count_mutant_dna",dna.CountMutant());
+        body.put("count_human_dna",dna.CountHuman());
         if (dna.CountHuman() != 0) {
             float ratio = (float)dna.CountMutant() / (float)dna.CountHuman();
             String ratio20 = String.format("%.02f", ratio);
-            body.put("Ratio",ratio20);
+            body.put("ratio",ratio20);
         } else
         {
             body.put("Ratio","inf");
