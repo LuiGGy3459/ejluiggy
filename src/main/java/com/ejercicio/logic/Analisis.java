@@ -1,4 +1,4 @@
-package com.ejercicio.dao;
+package com.ejercicio.logic;
 
 import org.json.JSONArray;
 import org.springframework.util.StringUtils;
@@ -33,13 +33,9 @@ public class Analisis {
         for(int i=0; i<arr.length; i++) {
             arr[i]=array.optString(i);
         }
+
         return arr;
     }
-
-     public static String statsDNA(){
-         float ratio = 0;
-         return "probando";
-     }
 
      public static boolean isMutant(String dna[]) {
 

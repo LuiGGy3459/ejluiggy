@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface dna extends JpaRepository <Dna, Long> {
     @Query(value = "select count(t.resultado) from Dna t where t.resultado=true")
-    Long findMutantCount();
+    Long CountMutant();
     @Query(value = "select count(t.resultado) from Dna t where t.resultado=false")
-    Long findHumantCount();
+    Long CountHuman();
 }

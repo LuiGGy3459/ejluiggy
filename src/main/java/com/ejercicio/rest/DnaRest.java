@@ -1,7 +1,7 @@
 package com.ejercicio.rest;
 
 import com.ejercicio.dao.dna;
-import com.ejercicio.dao.Analisis;
+import com.ejercicio.logic.Analisis;
 import com.ejercicio.model.Dna;
 import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,14 @@ public class DnaRest {
         JSONArray arr = jsonBody.getJSONArray("dna");
         String [] sarr = Analisis.toStringArray(arr);
 
-        Dna adndata = new Dna (0, jsonBody.toString(), Analisis.isMutant(sarr));
+        boolean mutres = Analisis.isMutant(sarr); //guardamos para no tener necesidar de invocar 2 veces.
+
+        Dna adndata = new Dna (0, jsonBody.toString(), mutres);
         System.out.println(jsonBody.toString());
         dna.save(adndata);
 
         headers.setContentType(MediaType.TEXT_PLAIN);
-        if (Analisis.isMutant(sarr)){
+        if (mutres){
             return new ResponseEntity<>("ADN CORRESPONDE A HUMANO MUTANTE",headers, HttpStatus.OK);
         }else{
             return new ResponseEntity<>("ADN CORRESPONDE A HUMANO NO MUTANTE",headers, HttpStatus.FORBIDDEN);
@@ -46,10 +48,10 @@ public class DnaRest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         JSONObject body = new JSONObject();
-        body.put("Cant. Mutantes",dna.findMutantCount());
-        body.put("Cant. Humanos",dna.findHumantCount());
-        if (dna.findHumantCount() != 0) {
-            float ratio = (float)dna.findMutantCount() / (float)dna.findHumantCount();
+        body.put("Cant. Mutantes",dna.CountMutant());
+        body.put("Cant. Humanos",dna.CountHuman());
+        if (dna.CountHuman() != 0) {
+            float ratio = (float)dna.CountMutant() / (float)dna.CountHuman();
             String ratio20 = String.format("%.02f", ratio);
             body.put("Ratio",ratio20);
         } else
