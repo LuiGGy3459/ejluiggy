@@ -1,18 +1,20 @@
 package com.ejercicio.logic;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.util.StringUtils;
 import java.lang.*;
+import java.util.List;
+
+
 
 public class Analisis {
 
-     public static int strcheck(char[] cstr) { //metodo que chequea la aparicion de AAAA/CCCC/GGGG/TTTT
+    public static int strcheck(char[] cstr) { //metodo que chequea la aparicion de AAAA/CCCC/GGGG/TTTT
          String str = new String (cstr);
          int coincidencias = 0;
-
-         System.out.println("ANALIZANDO");
 
          coincidencias += StringUtils.countOccurrencesOf(str,"AAAA");
          if (coincidencias<2){
@@ -25,9 +27,19 @@ public class Analisis {
              coincidencias += StringUtils.countOccurrencesOf(str,"TTTT");
          }
          return coincidencias;
-         }
+    }
 
-    public static String[] toStringArray(JSONArray array) {
+
+    public static String formatlist (List list) { //Formatea la Lista para mejor apreciacion
+         String mList = list.toString();
+
+         mList = mList.replace("[[", "[");
+         mList = mList.replace(", ", "\n");
+         mList = mList.replace("]]", "]");
+         return mList;
+    }
+
+    public static String[] toStringArray(JSONArray array) { //Convierte JSONArray a un String Array
         if(array==null)
             return null;
 
@@ -75,7 +87,7 @@ public class Analisis {
         }
     }
 
-    public static boolean isMutant(String dna[]) {
+    public static boolean isMutant(String dna[]) { //Analiza si el ADN dado corresponde a un Humano o Mutante
 
         int columna, fila, i, j, N;
         boolean res = false;
@@ -151,7 +163,7 @@ public class Analisis {
 
                 /*------------------------*/
 
-                System.out.println(coincidence);
+                //System.out.println(coincidence);
                 if (coincidence > 1) {
                     res = true;
                 } else {
@@ -162,7 +174,7 @@ public class Analisis {
                 System.out.println("La Matriz de ADN no es NxN");
             }
         } catch(Exception err) {
-             System.out.println("El error es:" + err);
+             //System.out.println("El error es:" + err);
              //return "La Matriz de ADN no es NxN";
         }
         return res;

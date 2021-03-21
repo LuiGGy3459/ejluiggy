@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.lang.String;
 
-
-
 @RestController
 @RequestMapping("/")
 
@@ -37,7 +35,7 @@ public class DnaRest {
             mutres = Analisis.isMutant(sarr); //guardamos para no tener necesidad de invocar 2 veces.
 
             Dna adndata = new Dna(0, arr.toString(), mutres);
-            System.out.println(jsonBody.toString());
+            //System.out.println(jsonBody.toString());
             dna.save(adndata);
 
             headers.setContentType(MediaType.TEXT_PLAIN);
@@ -46,10 +44,10 @@ public class DnaRest {
             } else {
                 return new ResponseEntity<>("ADN CORRESPONDE A HUMANO NO MUTANTE", headers, HttpStatus.FORBIDDEN);
             }
-        } else if (dnares == "errcv" )
+        } else if (dnares == "errcv" ) //Mensaje de Error por Integridad de ADN
         {
             return new ResponseEntity<>("ADN NO INTEGRO: Solo se admite: 'A-C-G-T'", headers, HttpStatus.NOT_ACCEPTABLE);
-        } else
+        } else //Mensaje de Error por Longitud de ADN
         {
             return new ResponseEntity<>("LONGITUD ADN INCOMPATIBLE: Solo de admiten NxN", headers, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -80,16 +78,11 @@ public class DnaRest {
 
     @GetMapping("/mlist") //server/mlist -- Lista todos los ADN mutantes
     public ResponseEntity<?> mlist() {
-        String mList = dna.ListMutant().toString();
-        /* Le damos formato a la Lista para mejor visualizacion*/
-        mList = mList.replace("[[", "[");
-        mList = mList.replace(", ", "\n");
-        mList = mList.replace("]]", "]");
-        /*-----------------------------------------------------*/
+
         if (dna.ListMutant().isEmpty())
             return new ResponseEntity("No Hay Mutantes Registrados :O", headers, HttpStatus.OK);
         else
-            return new ResponseEntity("Listado Mutantes:\n\n" + mList, headers, HttpStatus.OK);
+            return new ResponseEntity("Listado Mutantes:\n\n" + Analisis.formatlist(dna.ListMutant()),headers, HttpStatus.OK);
 
     }
 }

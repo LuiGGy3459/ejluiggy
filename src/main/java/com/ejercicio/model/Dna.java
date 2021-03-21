@@ -34,7 +34,7 @@ public class Dna {
     @Override
     public String toString() {
 
-        return "ID Query [test_id=" + Id + ", test_dna=" + Dna + ", test_result=" + resultado + "]";
+        return "ID Query [Id=" + Id + ", DNA=" + Dna + ", Result=" + resultado + "]";
 
     }
 
