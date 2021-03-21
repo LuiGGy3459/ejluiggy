@@ -1,5 +1,5 @@
 # Version de Java = 11
-# Tipo de Instancia: Automatic_Scaling, permite escalar en forma automatica segun necesidad de procesamiento.
+# Tipo de Instancia: flex, permite escalar en forma automatica segun necesidad de procesamiento.
 
 runtime: java11
-instance_class: automatic_scaling
+instance_class: flex
