@@ -78,7 +78,7 @@ public class DnaRest {
 
     @GetMapping("/mlist") //server/mlist -- Lista todos los ADN mutantes
     public ResponseEntity<?> mlist() {
-
+        headers.setContentType(MediaType.TEXT_PLAIN);
         if (dna.ListMutant().isEmpty())
             return new ResponseEntity("No Hay Mutantes Registrados :O", headers, HttpStatus.OK);
         else
