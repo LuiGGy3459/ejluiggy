@@ -46,10 +46,10 @@ public class DnaRest {
             }
         } else if (dnares == "errcv" ) //Mensaje de Error por Integridad de ADN
         {
-            return new ResponseEntity<>("ADN NO INTEGRO: Solo se admite: 'A-T-C-G'", headers, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("ADN NO INTEGRO: Solo se admite: 'A-T-C-G'", headers, HttpStatus.BAD_REQUEST);
         } else //Mensaje de Error por Longitud de ADN
         {
-            return new ResponseEntity<>("LONGITUD ADN INCOMPATIBLE: Solo de admiten NxN con N>3", headers, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("LONGITUD ADN INCOMPATIBLE: Solo de admiten NxN con N>3", headers, HttpStatus.BAD_REQUEST);
         }
     }
 
